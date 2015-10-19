@@ -70,7 +70,6 @@ public class MethodsUtilities {
 		if(validade.validarEmail(email) == false){
 			throw new CadastroException("Formato de e-mail esta invalido.");
 		}
-		
 		/*
 			 * if (!(email.matches("[A-Za-z0-9\\._-]+@[A-Za-z]+\\.[A-Za-z]+")))
 			 * { throw new Exception("Formato de e-mail esta invalido."); }
