@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 import exceptions.CadastroException;
 import exceptions.DataInvalidaException;
+import exceptions.LoginException;
 import exceptions.MensagemInvalidaException;
+import usuario.Usuario;
 
 public class MethodsUtilities {
 
@@ -128,5 +130,4 @@ public class MethodsUtilities {
 			throw new DataInvalidaException("Data nao existe.");
 		}
 	}
-
 }

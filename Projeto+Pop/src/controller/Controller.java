@@ -16,6 +16,8 @@ public class Controller implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Map<String, Usuario> usuarios;
 
+	boolean situacaoSistema = false; 
+	
 	private Usuario logado;
 
 	private MethodsUtilities util;
@@ -29,7 +31,7 @@ public class Controller implements Serializable {
 	 * Inicia Sistema
 	 */
 	public void iniciaSistema() {
-
+		this.situacaoSistema = true;
 	}
 
 	/**
@@ -41,6 +43,7 @@ public class Controller implements Serializable {
 		if (this.logado != null) {
 			throw new LoginException("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
 		}
+		this.situacaoSistema = false;
 	}
 
 	public void cadastrarUsuario(String nome, String email, String senha, String data, String foto) throws Exception {
@@ -55,7 +58,7 @@ public class Controller implements Serializable {
 			usuarios.put(email, new Usuario(nome, email, senha, util.dataFormatChanges(data), foto));
 
 		} else {
-			throw new Exception("usuario existente");
+			throw new UsuarioException("usuario existente");
 		}
 	}
 
@@ -77,14 +80,13 @@ public class Controller implements Serializable {
 
 	public void login(String email, String senha) throws Exception {
 		Usuario user = pesquisarUsuario(email);
-
 		if (this.logado != null) {
-			throw new LoginException("Um usuarix ja esta logadx: " + this.logado.getNome() + ".");
+			throw new LoginException("Um usuarix ja esta logadx: " + logado.getNome() + ".");
 		} else if (user == null) {
 			throw new LoginException("Um usuarix com email " + email + " nao esta cadastradx.");
 		} else {
 			if (user.getSenha().equals(senha)) {
-				this.logado = user;
+				this.logado =  user;
 			} else {
 				throw new LoginException("Senha invalida.");
 			}
